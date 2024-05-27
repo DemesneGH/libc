@@ -35,6 +35,7 @@ cfg_if! {
         #[allow(unused_imports)]
         use core::ops;
         #[allow(unused_imports)]
+        #[allow(hidden_glob_reexports)]
         use core::option;
     }
 }
@@ -141,6 +142,12 @@ cfg_if! {
 
         mod teeos;
         pub use teeos::*;
+    } else if #[cfg(target_os = "optee")] {
+        mod fixed_width_ints;
+        pub use fixed_width_ints::*;
+
+        mod optee;
+        pub use optee::*;
     } else if #[cfg(all(target_env = "sgx", target_vendor = "fortanix"))] {
         mod fixed_width_ints;
         pub use fixed_width_ints::*;
